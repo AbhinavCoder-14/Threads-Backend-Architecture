@@ -24,3 +24,6 @@ async function init() {
 
   app.listen(PORT, () => console.log("Server started at", PORT));
 }
+
+
+init()
