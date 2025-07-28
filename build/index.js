@@ -13,19 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const server_1 = require("@apollo/server");
+const index_1 = __importDefault(require("./graphql/index"));
 const express5_1 = require("@as-integrations/express5");
 // import cors from 'cors';
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
-        const PORT = Number(process.env.PORT || 8000);
-        app.use(express_1.default.json);
-        const gqlServer = new server_1.ApolloServer({
-            typeDefs: "",
-            resolvers: {},
-        });
-        yield gqlServer.start();
+        const PORT = Number(8000);
+        app.use(express_1.default.json());
+        const gqlServer = yield (0, index_1.default)();
         app.use("/graphql", (0, express5_1.expressMiddleware)(gqlServer));
         app.get("/", (req, res) => {
             res.json({
