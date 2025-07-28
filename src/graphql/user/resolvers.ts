@@ -2,6 +2,7 @@ import UserService, { CreateUserPayLoad } from "../../services/user"
 
 
 const queries = {
+    hello: () => "Hello from GraphQL!",
 
 }
 

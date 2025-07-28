@@ -6,6 +6,7 @@ export interface CreateUserPayLoad {
   lastName: string;
   email: string;
   password: string;
+
 }
 
 class UserService {
@@ -15,11 +16,14 @@ class UserService {
 
     const hashPassword = createHash('sha256',salt).update(password).digest("hex")
 
+    const c = salt.toString()
+
     return prismaClient.user.create({
       data: {
         firstName,
         lastName,
         email,
+        salt:c,
         password:hashPassword,
       },
     });
