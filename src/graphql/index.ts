@@ -1,4 +1,5 @@
 import { ApolloServer } from "@apollo/server";
+import { gql } from "@apollo/client";
 import { prismaClient } from "../lib/db";
 import { User } from "../graphql/user/index";
 
@@ -7,7 +8,7 @@ import { User } from "../graphql/user/index";
 
 async function CreateApolloGraphQlSever() {
   const gqlServer = new ApolloServer({
-    typeDefs: `
+    typeDefs: gql`
           type Query {
             hello:String
             ${User.queries}
@@ -24,29 +25,6 @@ async function CreateApolloGraphQlSever() {
       },
       Mutation: {
         ...User.resolvers.Mutation,
-
-        // createUser: async (
-        //   _,
-        //   {
-        //     firstName,
-        //     lastName,
-        //     email,
-        //     password,
-        //   }: {
-        //     firstName: string;
-        //     lastName: string;
-        //     email: string;
-        //     password: string;
-        //   }
-        // ) => {
-        //   await prismaClient.user.create({
-        //     data: {
-        //       email,
-        //       password,
-        //       firstName,
-        //       lastName,
-        //       salt: "random_ass",
-        //     },
       },
     },
   });
